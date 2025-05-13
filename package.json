@@ -2,11 +2,11 @@
   "name": "eliza",
   "scripts": {
     "preinstall": "only-allow bun",
-    "start": "cd ./packages/the-org && bun run start",
+    "start": "cd ./packages/project-fable && bun run start",
     "start-cli": "cd ./packages/cli && bun run cli start",
     "start:debug": "cross-env NODE_NO_WARNINGS=1 LOG_LEVEL=debug elizaos start",
     "start:app": "turbo run start --filter=./packages/app",
-    "dev": "turbo run dev --filter=./packages/the-org",
+    "dev": "turbo run dev --filter=./packages/project-fable",
     "build:docs": "turbo run build --filter=@elizaos/docs",
     "build:client": "turbo run build --filter=@elizaos/client",
     "build": "turbo run build --filter=@elizaos/client && turbo run build --filter=!@elizaos/docs",
