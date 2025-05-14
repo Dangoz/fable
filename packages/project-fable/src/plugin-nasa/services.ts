@@ -49,7 +49,11 @@ export const createNASAService = (apiKey: string) => {
   return { getAPOD, getMarsRoverPhoto, getEpicImage };
 };
 
-const fetchMarsPhotos = async (apiKey, attempts = 0, maxAttempts = 10) => {
+const fetchMarsPhotos = async (
+  apiKey,
+  attempts = 0,
+  maxAttempts = 10
+): Promise<MarsRoverDataResponse> => {
   try {
     const curiosityCameras = ['FHAZ', 'RHAZ', 'MAST', 'CHEMCAM', 'MAHLI', 'MARDI', 'NAVCAM'];
     const opportunityCameras = ['FHAZ', 'RHAZ', 'PANCAM', 'MINITES'];
@@ -83,7 +87,12 @@ const fetchMarsPhotos = async (apiKey, attempts = 0, maxAttempts = 10) => {
     const requestURL = `https://api.nasa.gov/mars-photos/api/v1/rovers/${randomRover}/photos?sol=${randomSol}&camera=${randomCamera}&api_key=${apiKey}`;
     console.log('requestURL::::::: ', requestURL);
     const response = await fetch(requestURL);
-    const data = await response.json();
+    const data = (await response.json()) as {
+      photos: {
+        img_src: string;
+      }[];
+    };
+    console.log('data::::::: ', JSON.stringify(data, null, 2));
 
     if (data.photos.length) {
       const returnObj = {

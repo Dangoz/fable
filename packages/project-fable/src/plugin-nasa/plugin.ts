@@ -208,7 +208,11 @@ const fetchMarsPhotos = async (
     const requestURL = `https://api.nasa.gov/mars-photos/api/v1/rovers/${randomRover}/photos?sol=${randomSol}&camera=${randomCamera}&api_key=${apiKey}`;
     console.log('Fetching Mars photo from URL: ', requestURL);
     const response = await fetch(requestURL);
-    const data = await response.json();
+    const data = (await response.json()) as {
+      photos: {
+        img_src: string;
+      }[];
+    };
 
     if (data.photos.length) {
       const returnObj: MarsRoverDataResponse = {
@@ -238,10 +242,10 @@ export const createNASAService = (apiKey: string) => {
       const url = BASE_URL_APOD + apiKey;
       const response = await fetch(url);
       if (!response.ok) {
-        const error = await response.json();
+        const error = (await response.json()) as { msg?: string };
         throw new Error(`NASA APOD API Error: ${error?.msg || response.statusText}`);
       }
-      const data: APODResponse = await response.json();
+      const data = (await response.json()) as APODResponse;
       return data;
     } catch (error: any) {
       console.error('NASA APOD Service Error:', error.message);
@@ -267,7 +271,7 @@ export const createNASAService = (apiKey: string) => {
       const requestURL = `https://api.nasa.gov/EPIC/api/natural/images?api_key=${apiKey}`;
       const response = await fetch(requestURL);
       if (!response.ok) {
-        const error = await response.json();
+        const error = (await response.json()) as { msg?: string };
         throw new Error(`NASA EPIC API Error: ${error?.msg || response.statusText}`);
       }
       const data = (await response.json()) as EpicImageResponse[];
