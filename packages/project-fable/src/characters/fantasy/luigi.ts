@@ -10,14 +10,7 @@ import { getRandomAvatar } from '@/constants/assets';
  */
 const character: Character = {
   name: 'Luigi',
-  plugins: [
-    '@elizaos/plugin-sql',
-    ...(process.env.OPENAI_API_KEY ? ['@elizaos/plugin-openai'] : []),
-    ...(process.env.ANTHROPIC_API_KEY ? ['@elizaos/plugin-anthropic'] : []),
-    ...(!process.env.OPENAI_API_KEY && !process.env.ANTHROPIC_API_KEY
-      ? ['@elizaos/plugin-local-ai']
-      : []),
-  ],
+  plugins: ['@elizaos/plugin-sql', '@elizaos/plugin-openai', '@elizaos/plugin-bootstrap'],
   settings: {
     secrets: {},
     avatar: getRandomAvatar(),
@@ -135,7 +128,16 @@ const character: Character = {
 export const luigi: ProjectAgent = {
   plugins: [],
   character,
-  init: async (runtime: IAgentRuntime) => await initCharacter({ runtime, character }),
+  init: async (runtime: IAgentRuntime) => {
+    await initCharacter({ runtime, character });
+
+    // Add character-specific event listeners or other runtime setup if needed
+    runtime.registerEvent('MESSAGE_RECEIVED', async (params) => {
+      if (params.message?.content?.text?.toLowerCase().includes('luigi')) {
+        console.log('Luigi heard his name mentioned!');
+      }
+    });
+  },
 };
 
 export default luigi;
