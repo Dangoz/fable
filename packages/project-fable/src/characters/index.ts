@@ -1,3 +1,4 @@
 export { defaultCharacter } from './defaultCharacter';
-export { marsProbeAgent } from './marsProbe';
-export { luigiCharacter, pomCharacter } from './fantasy';
+export { marsProbe } from './marsProbe';
+export { luigi } from './fantasy/luigi';
+export { pom } from './fantasy/pom';

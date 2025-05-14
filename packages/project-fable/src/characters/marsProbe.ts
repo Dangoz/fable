@@ -155,7 +155,7 @@ export const character: Character = {
   },
 };
 
-export const marsProbeAgent: ProjectAgent = {
+export const marsProbe: ProjectAgent = {
   character,
   plugins: [nasaPlugin],
   init: async (runtime: IAgentRuntime) => {
@@ -167,4 +167,4 @@ export const marsProbeAgent: ProjectAgent = {
   },
 };
 
-export default marsProbeAgent;
+export default marsProbe;

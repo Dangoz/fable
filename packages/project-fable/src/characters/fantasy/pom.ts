@@ -135,10 +135,10 @@ const character: Character = {
   },
 };
 
-export const pomCharacter: ProjectAgent = {
+export const pom: ProjectAgent = {
   plugins: [],
   character,
   init: async (runtime: IAgentRuntime) => await initCharacter({ runtime, character }),
 };
 
-export default pomCharacter;
+export default pom;

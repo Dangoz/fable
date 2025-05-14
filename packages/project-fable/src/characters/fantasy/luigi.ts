@@ -132,10 +132,10 @@ const character: Character = {
   },
 };
 
-export const luigiCharacter: ProjectAgent = {
+export const luigi: ProjectAgent = {
   plugins: [],
   character,
   init: async (runtime: IAgentRuntime) => await initCharacter({ runtime, character }),
 };
 
-export default luigiCharacter;
+export default luigi;
