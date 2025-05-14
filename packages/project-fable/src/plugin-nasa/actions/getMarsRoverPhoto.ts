@@ -7,9 +7,9 @@ import {
   Memory,
   State,
 } from '@elizaos/core';
-import { validateNasaConfig } from '../environment';
-import { getMarsRoverExamples } from '../examples';
-import { createNASAService } from '../services';
+import { validateNasaConfig } from '@/plugin-nasa/environment';
+import { getMarsRoverExamples } from '@/plugin-nasa/examples';
+import { createNASAService } from '@/plugin-nasa/services';
 
 export const getMarsRoverAction: Action = {
   name: 'NASA_GET_MARS_ROVER_PHOTO',

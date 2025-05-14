@@ -1,6 +1,6 @@
 import type { Character, IAgentRuntime, ProjectAgent, Provider } from '@elizaos/core';
-import { nasaPlugin } from '../plugin-nasa';
-import { initCharacter } from '../init';
+import { nasaPlugin } from '@/plugin-nasa';
+import { initCharacter } from '@/init';
 
 // Import anxietyProvider if available in your setup
 // This would normally be imported from '@elizaos/plugin-bootstrap/src/providers/anxiety'

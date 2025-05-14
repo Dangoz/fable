@@ -7,9 +7,9 @@ import {
   Memory,
   State,
 } from '@elizaos/core';
-import { validateNasaConfig } from '../environment';
-import { getAPODExamples } from '../examples';
-import { createNASAService } from '../services';
+import { validateNasaConfig } from '@/plugin-nasa/environment';
+import { getAPODExamples } from '@/plugin-nasa/examples';
+import { createNASAService } from '@/plugin-nasa/services';
 
 export const getAPODAction: Action = {
   name: 'NASA_GET_APOD',

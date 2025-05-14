@@ -14,7 +14,7 @@ import {
   logger,
 } from '@elizaos/core';
 import { z } from 'zod';
-import starterTestSuite from './tests';
+import starterTestSuite from '@/tests';
 
 /**
  * Define the configuration schema for the plugin with the following properties:

@@ -6296,8 +6296,6 @@
 
     "@elizaos/plugin-video-understanding/glob": ["glob@11.0.0", "", { "dependencies": { "foreground-child": "^3.1.0", "jackspeak": "^4.0.1", "minimatch": "^10.0.0", "minipass": "^7.1.2", "package-json-from-dist": "^1.0.0", "path-scurry": "^2.0.0" }, "bin": { "glob": "dist/esm/bin.mjs" } }, "sha512-9UiX/Bl6J2yaBbxKoEBRm4Cipxgok8kQYcOPEhScPwebu2I0HoQOuYdIO6S3hLuWoZgpDpwQZMzTFxgpkyT76g=="],
 
-    "@elizaos/project-fable/@elizaos/plugin-bootstrap": ["@elizaos/plugin-bootstrap@1.0.0-beta.49", "", { "dependencies": { "@elizaos/core": "^1.0.0-beta.49" }, "peerDependencies": { "whatwg-url": "7.1.0" } }, "sha512-r7zBXIC3c97YSEvN5Bn+42bPDjbB4rzOlfA5I6dVGQn3gliwTuLxBKyjXTZRJtIlgjit/xIKBMOEr4zw8l+QAw=="],
-
     "@elizaos/the-org/@types/react": ["@types/react@18.3.20", "", { "dependencies": { "@types/prop-types": "*", "csstype": "^3.0.2" } }, "sha512-IPaCZN7PShZK/3t6Q87pfTkRm6oLTd4vztyoj+cbHUF1g3FfVb2tFIL79uCRKEfv16AhqDMBywP2VW3KIZUvcg=="],
 
     "@elizaos/the-org/@types/react-dom": ["@types/react-dom@18.3.6", "", { "peerDependencies": { "@types/react": "^18.0.0" } }, "sha512-nf22//wEbKXusP6E9pfOCDwFdHAX4u172eaJI4YkDRQEZiorm6KfYnSC2SWLDMVWUOWPERmJnN0ujeAfTBLvrw=="],

@@ -1,4 +1,4 @@
-import type { EpicImageResponse } from './types';
+import type { EpicImageResponse } from '@/plugin-nasa/types';
 
 // given an epic image response, construct the appropriate image url
 export const getEpicImageUrl = (image: EpicImageResponse) => {

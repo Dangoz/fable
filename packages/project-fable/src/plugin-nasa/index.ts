@@ -1,7 +1,7 @@
 import { Plugin } from '@elizaos/core';
-import { getAPODAction } from './actions/getAPOD';
-import { getMarsRoverAction } from './actions/getMarsRoverPhoto';
-import { getEpicImageAction } from './actions/getEpicImage';
+import { getAPODAction } from '@/plugin-nasa/actions/getAPOD';
+import { getMarsRoverAction } from '@/plugin-nasa/actions/getMarsRoverPhoto';
+import { getEpicImageAction } from '@/plugin-nasa/actions/getEpicImage';
 
 export const nasaPlugin: Plugin = {
   name: 'nasa',

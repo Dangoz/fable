@@ -1,4 +1,5 @@
 import { defineConfig } from 'tsup';
+import { resolve } from 'path';
 
 export default defineConfig({
   entry: ['src/index.ts'],
@@ -8,6 +9,11 @@ export default defineConfig({
   clean: true,
   format: ['esm'], // Ensure you're targeting CommonJS
   dts: false, // Skip DTS generation to avoid external import issues // Ensure you're targeting CommonJS
+  esbuildOptions: (options) => {
+    options.alias = {
+      '@': resolve(__dirname, './src'),
+    };
+  },
   external: [
     'dotenv', // Externalize dotenv to prevent bundling
     'fs', // Externalize fs to use Node.js built-in module

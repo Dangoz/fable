@@ -1,6 +1,6 @@
 import type { Character, IAgentRuntime, ProjectAgent } from '@elizaos/core';
-import { initCharacter } from '../../init';
-import { getRandomAvatar } from '../../constants/assets';
+import { initCharacter } from '@/init';
+import { getRandomAvatar } from '@/constants/assets';
 
 /**
  * Represents Pom, a cheerful and energetic fairy with magical abilities.

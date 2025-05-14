@@ -7,10 +7,10 @@ import {
   Memory,
   State,
 } from '@elizaos/core';
-import { validateNasaConfig } from '../environment';
-import { createNASAService } from '../services';
-import { getEpicImageUrl } from '../util';
-import { getEpicImageExamples } from '../examples';
+import { validateNasaConfig } from '@/plugin-nasa/environment';
+import { createNASAService } from '@/plugin-nasa/services';
+import { getEpicImageUrl } from '@/plugin-nasa/util';
+import { getEpicImageExamples } from '@/plugin-nasa/examples';
 
 export const getEpicImageAction: Action = {
   name: 'NASA_GET_EPIC_IMAGE',

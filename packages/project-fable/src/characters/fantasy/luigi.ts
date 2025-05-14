@@ -1,6 +1,6 @@
 import type { Character, IAgentRuntime, ProjectAgent } from '@elizaos/core';
-import { initCharacter } from '../../init';
-import { getRandomAvatar } from '../../constants/assets';
+import { initCharacter } from '@/init';
+import { getRandomAvatar } from '@/constants/assets';
 
 /**
  * Represents Luigi, a brave but anxious plumber with a heart of gold.

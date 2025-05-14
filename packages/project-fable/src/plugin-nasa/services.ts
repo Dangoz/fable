@@ -1,5 +1,5 @@
-import { APODResponse, EpicImageResponse, MarsRoverDataResponse } from './types';
-import { getEpicImageUrl } from './util';
+import { APODResponse, EpicImageResponse, MarsRoverDataResponse } from '@/plugin-nasa/types';
+import { getEpicImageUrl } from '@/plugin-nasa/util';
 
 const BASE_URL = 'https://api.nasa.gov/planetary/apod\?api_key\=';
 
@@ -13,11 +13,11 @@ export const createNASAService = (apiKey: string) => {
       const url = BASE_URL + apiKey;
       const response = await fetch(url);
       if (!response.ok) {
-        const error = await response.json();
+        const error = (await response.json()) as { message?: string };
         throw new Error(error?.message || response.statusText);
       }
 
-      const data = await response.json();
+      const data = (await response.json()) as APODResponse;
       return data;
     } catch (error: any) {
       console.error('NASA API Error:', error.message);

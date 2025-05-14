@@ -1,36 +1,40 @@
 import type { Content, IAgentRuntime, Memory, State, TestSuite, UUID } from '@elizaos/core';
 import { v4 as uuidv4 } from 'uuid';
-import { character } from './index';
+import project from '@/index';
 
 export class StarterTestSuite implements TestSuite {
-  name = 'starter';
+  name = 'Starter Test Suite';
   description = 'Tests for the starter project';
 
   tests = [
     {
-      name: 'Character configuration test',
+      name: 'Character Configuration Test',
       fn: async (runtime: IAgentRuntime) => {
         const requiredFields = ['name', 'bio', 'plugins', 'system', 'messageExamples'];
-        const missingFields = requiredFields.filter((field) => !(field in character));
+        const missingFields = requiredFields.filter(
+          (field) => !(field in project.agents[0].character)
+        );
 
         if (missingFields.length > 0) {
-          throw new Error(`Missing required fields: ${missingFields.join(', ')}`);
+          throw new Error(`Missing required character fields: ${missingFields.join(', ')}`);
         }
 
         // Additional character property validations
-        if (character.name !== 'Eliza') {
-          throw new Error(`Expected character name to be 'Eliza', got '${character.name}'`);
+        if (project.agents[0].character.name !== 'Eliza') {
+          throw new Error(
+            `Expected character name to be 'Eliza', got '${project.agents[0].character.name}'`
+          );
         }
-        if (!Array.isArray(character.plugins)) {
+        if (!Array.isArray(project.agents[0].character.plugins)) {
           throw new Error('Character plugins should be an array');
         }
-        if (!character.system) {
+        if (!project.agents[0].character.system) {
           throw new Error('Character system prompt is required');
         }
-        if (!Array.isArray(character.bio)) {
+        if (!Array.isArray(project.agents[0].character.bio)) {
           throw new Error('Character bio should be an array');
         }
-        if (!Array.isArray(character.messageExamples)) {
+        if (!Array.isArray(project.agents[0].character.messageExamples)) {
           throw new Error('Character message examples should be an array');
         }
       },
