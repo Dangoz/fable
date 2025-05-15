@@ -1,0 +1,7 @@
+[submodule "apps/fable-client"]
+	path = apps/fable-client
+	url = https://github.com/Dangoz/fable-client.git
+
+[submodule "apps/fable-doc"]
+	path = apps/fable-doc
+	url = https://github.com/Dangoz/fable-doc.git
