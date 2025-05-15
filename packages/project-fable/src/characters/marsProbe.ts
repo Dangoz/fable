@@ -1,27 +1,6 @@
-import type { Character, IAgentRuntime, ProjectAgent, Provider } from '@elizaos/core';
+import type { Character, IAgentRuntime, ProjectAgent } from '@elizaos/core';
 import { nasaPlugin } from '@/plugin-nasa';
 import { initCharacter } from '@/init';
-
-// Import anxietyProvider if available in your setup
-// This would normally be imported from '@elizaos/plugin-bootstrap/src/providers/anxiety'
-// For this example, we'll create a placeholder that can be replaced with the real import
-
-/**
- * Placeholder for the anxietyProvider - replace with actual import when available
- * import { anxietyProvider } from '@elizaos/plugin-bootstrap/src/providers/anxiety';
- */
-const anxietyProvider: Provider = {
-  name: 'ANXIETY',
-  description: 'Social directions for the AI to follow based on the channel type',
-  // The real implementation would have a get method
-  get: async () => {
-    return {
-      data: { anxiety: [] },
-      values: { anxiety: '' },
-      text: '',
-    };
-  },
-};
 
 /**
  * Represents the Mars-Probe-4000 character with space exploration knowledge and NASA data access.
@@ -35,7 +14,7 @@ export const character: Character = {
     ...(!process.env.OPENAI_API_KEY && !process.env.ANTHROPIC_API_KEY
       ? ['@elizaos/plugin-local-ai']
       : []),
-    ...(!process.env.IGNORE_BOOTSTRAP ? ['@elizaos/plugin-bootstrap'] : []),
+    '@elizaos/plugin-bootstrap',
   ],
   settings: {
     secrets: {
@@ -159,10 +138,6 @@ export const marsProbe: ProjectAgent = {
   character,
   plugins: [nasaPlugin],
   init: async (runtime: IAgentRuntime) => {
-    // Register the anxiety provider if real implementation is available
-    if (anxietyProvider && anxietyProvider.get) {
-      runtime.registerProvider(anxietyProvider);
-    }
     await initCharacter({ runtime, character });
   },
 };

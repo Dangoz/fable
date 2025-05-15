@@ -165,24 +165,7 @@ const character: Character = {
 export const luigi: ProjectAgent = {
   plugins: [],
   character,
-  init: async (runtime: IAgentRuntime) => {
-    await initCharacter({ runtime, character });
-
-    // Add character-specific event listeners or other runtime setup if needed
-    runtime.registerEvent('MESSAGE_RECEIVED', async (params) => {
-      const messageText = params.message?.content?.text?.toLowerCase() || '';
-      // Only log and potentially respond if Luigi is directly mentioned or asked about plumbing/ghosts
-      if (
-        messageText.includes('luigi') ||
-        messageText.includes('plumb') ||
-        messageText.includes('ghost') ||
-        messageText.includes('monster') ||
-        messageText.includes('adventure')
-      ) {
-        console.log('Luigi heard his name or a relevant topic mentioned!');
-      }
-    });
-  },
+  init: async (runtime: IAgentRuntime) => await initCharacter({ runtime, character }),
 };
 
 export default luigi;

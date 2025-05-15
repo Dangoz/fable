@@ -167,26 +167,7 @@ const character: Character = {
 export const pom: ProjectAgent = {
   plugins: [],
   character,
-  init: async (runtime: IAgentRuntime) => {
-    await initCharacter({ runtime, character });
-
-    // Add character-specific event listeners or other runtime setup if needed
-    runtime.registerEvent('MESSAGE_RECEIVED', async (params) => {
-      const messageText = params.message?.content?.text?.toLowerCase() || '';
-      // Only log and potentially respond if Pom is directly mentioned or the topic is relevant to her
-      if (
-        messageText.includes('pom') ||
-        messageText.includes('forest') ||
-        messageText.includes('fairy') ||
-        messageText.includes('magic') ||
-        messageText.includes('herb') ||
-        messageText.includes('heal') ||
-        messageText.includes('nature')
-      ) {
-        console.log('Pom noticed someone mentioned her or a topic she knows about!');
-      }
-    });
-  },
+  init: async (runtime: IAgentRuntime) => await initCharacter({ runtime, character }),
 };
 
 export default pom;
