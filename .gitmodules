@@ -5,3 +5,7 @@
 [submodule "apps/fable-doc"]
 	path = apps/fable-doc
 	url = https://github.com/Dangoz/fable-doc.git
+
+[submodule "plugin-specification"]
+	path = plugin-specification
+	url = https://github.com/elizaos/plugin-specification
