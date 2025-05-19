@@ -1,3 +1,9 @@
+/**
+ * A test plugin that serves as a template for creating new plugins.
+ *
+ * @module plugin-nasa
+ */
+
 import { Plugin } from '@elizaos/core';
 import { getAPODAction } from '@/plugin-nasa/actions/getAPOD';
 import { getMarsRoverAction } from '@/plugin-nasa/actions/getMarsRoverPhoto';
