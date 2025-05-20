@@ -21,6 +21,7 @@ export class ImageGenerationService extends Service {
 
   constructor(runtime: IAgentRuntime) {
     super(runtime);
+    this.runtime = runtime;
   }
 
   async stop(): Promise<void> {
@@ -29,18 +30,19 @@ export class ImageGenerationService extends Service {
 
   /**
    * Generates an image based on a text prompt using OpenAI's gpt-image-1 model
-   * @param params Parameters for image generation
-   * @returns Generated image URL or error message
+   * @param prompt The text description to generate an image from
+   * @returns Generated image URL
+   * @throws Error if the generation fails
    */
-  async generateImage(params: { runtime: IAgentRuntime; prompt: string }): Promise<string> {
-    const { runtime, prompt } = params;
-
+  async generateImage(prompt: string): Promise<string> {
     try {
       // Get the OpenAI API key
-      const apiKey = runtime.getSetting('OPENAI_API_KEY');
+      const apiKey = this.runtime.getSetting('OPENAI_API_KEY');
       if (!apiKey) {
         throw new Error('OPENAI_API_KEY is not set');
       }
+
+      elizaLogger.log('Generating image with prompt:', prompt);
 
       // Call OpenAI API to generate image
       // Using gpt-image-1 model - OpenAI's latest model for image generation
@@ -77,7 +79,7 @@ export class ImageGenerationService extends Service {
       return data.data[0].url;
     } catch (error) {
       elizaLogger.error('Failed to generate image with OpenAI:', error);
-      return `Failed to generate image: ${error instanceof Error ? error.message : String(error)}`;
+      throw error;
     }
   }
 }

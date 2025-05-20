@@ -6,10 +6,11 @@ import {
   type Plugin,
   type State,
   elizaLogger,
+  UUID,
 } from '@elizaos/core';
 import fs from 'node:fs';
 import path from 'node:path';
-import { validateImageGenConfig } from './environment';
+import { isOpenAIConfigured } from './environment';
 import { generateImageExamples } from './examples';
 import { ImageGenerationService } from './service';
 
@@ -44,6 +45,14 @@ async function saveImageFromUrl(imageUrl: string, filename: string): Promise<str
 }
 
 /**
+ * Generates a unique ID for memory objects
+ * @returns A unique UUID
+ */
+function generateId(): UUID {
+  return crypto.randomUUID() as UUID;
+}
+
+/**
  * OpenAI gpt-image-1 image generation action implementation
  * See: https://platform.openai.com/docs/guides/images
  */
@@ -52,25 +61,34 @@ const imageGeneration: Action = {
   similes: ['CREATE_IMAGE', 'MAKE_PICTURE', 'DRAW', 'GENERATE_IMAGE'],
   description: 'Generate an image using OpenAI gpt-image-1 model.',
 
-  validate: async (runtime: IAgentRuntime) => {
-    try {
-      await validateImageGenConfig(runtime);
-      return true;
-    } catch (error) {
-      elizaLogger.error('Image generation validation failed:', error);
+  validate: async (runtime: IAgentRuntime, message: Memory) => {
+    // Check if OpenAI API key is configured
+    const apiKey = runtime.getSetting('OPENAI_API_KEY') || process.env.OPENAI_API_KEY;
+    if (!isOpenAIConfigured(apiKey)) {
       return false;
     }
+
+    // Check if the message text suggests image generation
+    const text = message.content.text.toLowerCase();
+    return (
+      text.includes('generate') ||
+      text.includes('create') ||
+      text.includes('draw') ||
+      text.includes('make an image') ||
+      text.includes('picture of')
+    );
   },
 
   handler: async (
     runtime: IAgentRuntime,
     message: Memory,
     state: State,
-    _options: { [key: string]: unknown },
-    callback: HandlerCallback
+    _options: { [key: string]: unknown } = {},
+    callback?: HandlerCallback
   ) => {
     try {
-      // Get the image generation service
+      // Register and get the image generation service
+      await runtime.registerService(ImageGenerationService);
       const imageService = runtime.getService<ImageGenerationService>(
         ImageGenerationService.serviceType
       );
@@ -80,58 +98,79 @@ const imageGeneration: Action = {
         return false;
       }
 
-      // Generate the image using OpenAI's gpt-image-1
-      const imageResult = await imageService.generateImage({
-        runtime,
-        prompt: message.content.text,
-      });
+      // Generate the initial response with thought component
+      const responseContent = {
+        thought:
+          "This request is asking for image generation. I'll use OpenAI's gpt-image-1 model to create a visual based on the user's description.",
+        text: "I'm generating that image for you now...",
+        actions: ['GENERATE_IMAGE'],
+      };
 
-      // Check if we got a URL or an error message
-      if (imageResult.startsWith('http')) {
-        // We got an image URL from OpenAI
+      // Send initial response if callback provided
+      if (callback) {
+        await callback(responseContent);
+      }
+
+      try {
+        // Generate the image using OpenAI's gpt-image-1
+        const imageUrl = await imageService.generateImage(message.content.text);
+
+        // Generate a unique filename
         const filename = `openai_${Date.now()}`;
 
         // Save the image from the URL
-        const filepath = await saveImageFromUrl(imageResult, filename);
-
+        const filepath = await saveImageFromUrl(imageUrl, filename);
         elizaLogger.log('Saved image from OpenAI:', filepath);
 
-        // Send the response back to the user
-        callback(
+        // Create follow-up message with the generated image
+        await runtime.createMemory(
           {
-            text: "Here's the image I created:",
-            attachments: [
-              {
-                id: crypto.randomUUID(),
-                url: filepath,
-                title: 'Generated image',
-                source: 'openai',
-                description: 'Image generated using OpenAI gpt-image-1',
-                text: 'Image generated with OpenAI gpt-image-1',
-                contentType: 'image/png',
-              },
-            ],
-          },
-          [
-            {
-              attachment: filepath,
-              name: `${filename}.png`,
+            id: generateId(),
+            content: {
+              text: "Here's the image I generated:",
+              attachments: [
+                {
+                  id: crypto.randomUUID(),
+                  url: filepath,
+                  title: 'Generated image',
+                  source: 'openai',
+                  description: 'Image generated using OpenAI gpt-image-1',
+                  text: 'Image generated with OpenAI gpt-image-1',
+                  contentType: 'image/png',
+                },
+              ],
             },
-          ]
+            entityId: runtime.agentId,
+            agentId: runtime.agentId,
+            roomId: message.roomId,
+          },
+          'messages'
         );
-      } else {
-        // Something went wrong, return the error message
-        callback({
-          text: `I couldn't generate that image. ${imageResult}`,
+
+        return true;
+      } catch (error) {
+        // Image generation failed, send error response
+        if (callback) {
+          await callback({
+            thought: 'The image generation failed due to an error with OpenAI.',
+            text: `I'm sorry, I wasn't able to generate that image. ${error instanceof Error ? error.message : String(error)}`,
+            actions: ['REPLY'],
+          });
+        }
+        return false;
+      }
+    } catch (error) {
+      elizaLogger.error('Error handling image generation:', error);
+
+      // Send error response if callback provided
+      if (callback) {
+        await callback({
+          thought: 'The image generation failed due to a technical error.',
+          text: "I'm sorry, I wasn't able to generate that image. There was a technical problem.",
+          actions: ['REPLY'],
         });
       }
 
-      return true;
-    } catch (error) {
-      elizaLogger.error('Error handling image generation:', error);
-      callback({
-        text: 'Sorry, I encountered an error while trying to generate that image.',
-      });
       return false;
     }
   },
