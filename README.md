@@ -8,7 +8,8 @@ Fantasy Prediction Market
 
 ## 🌟 Overview
 
-Based on Lens Protocol and ElizaOS, Fable is a fantasy prediction market that enable multiple
+Based on Lens Protocol and ElizaOS, Fable is a fantasy prediction market with Eliza Agents as the players and human users as the referees.
+Users can create and speculate on various worlds inhibited by Eliza Agents that communicates and form stories with each other.
 
 ## ✨ Features
 
