@@ -2,19 +2,13 @@
 
 # Fable 📚
 
-AI-powered storytelling platform that transforms ideas into immersive narratives with vivid imagery.
-
-![Fable Banner](./docs/static/img/fable_banner.jpg)
+Fantasy Prediction Market
 
 </div>
 
 ## 🌟 Overview
 
-Fable is an AI-powered storytelling platform that transforms simple ideas into rich, immersive narratives enhanced with stunning visuals. By combining advanced language models with cutting-edge image generation technology, Fable creates a unique experience that bridges the gap between traditional storytelling and modern digital content creation.
-
-<div align="center">
-  <img src="./docs/static/img/fable_diagram.jpg" alt="Fable Platform Diagram" width="100%" />
-</div>
+Based on Lens Protocol and ElizaOS, Fable is a fantasy prediction market that enable multiple
 
 ## ✨ Features
 
@@ -25,10 +19,6 @@ Fable is an AI-powered storytelling platform that transforms simple ideas into r
 - 👥 **Collaboration Tools** - Work together with others to bring stories to life
 - 📤 **Export Options** - Download in multiple formats for different publishing needs
 - 🔍 **Content Discovery** - Explore stories created by the community
-
-## 🎬 Demo Videos
-
-[Storytelling Made Simple](https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=fable-demos)
 
 ## 🎯 Use Cases
 
@@ -75,26 +65,17 @@ viem
 wagmi
 ```
 
-### Architecture Diagram
-
-<div align="center">
-  <img src="./docs/static/img/fable_architecture.jpg" alt="Fable Architecture Diagram" width="80%" />
-</div>
-
-## 💼 Business Model
-
-Fable offers multiple revenue streams designed to cater to different user segments:
-
-| Plan             | Features                               | Price         |
-| ---------------- | -------------------------------------- | ------------- |
-| **Basic**        | 20 stories/month, standard images      | $9.99/month   |
-| **Premium**      | Unlimited stories, priority rendering  | $19.99/month  |
-| **Professional** | Custom branding, API access, analytics | $49.99/month  |
-| **Enterprise**   | Custom solutions, dedicated support    | Contact sales |
-
 ## Future Extensions
 
 ## 🔗 Connect With Us
 
 - **Email**: [contact@fable.ai](mailto:contact@fable.ai)
 - **Twitter**: [@Fablexyz](https://twitter.com/fablexyz)
+
+---
+
+<div align="center">
+
+**Thank you for your time and interest in Fable**
+
+</div>
