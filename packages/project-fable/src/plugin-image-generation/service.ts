@@ -29,10 +29,9 @@ export const createImageGenerationService = (apiKey: string) => {
         const response = await openai.images.generate({
           model: 'gpt-image-1',
           prompt,
-          n: 1,
           quality: 'medium',
           size: '1024x1024',
-          output_format: 'jpeg',
+          output_format: 'png',
         });
 
         if (!response.data?.[0]?.url) {
