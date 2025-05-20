@@ -1,6 +1,7 @@
 import type { Character, IAgentRuntime, ProjectAgent } from '@elizaos/core';
 import { nasaPlugin } from '@/plugin-nasa';
 import { initCharacter } from '@/init';
+import { imageGenPlugin } from '@/plugin-image-generation';
 
 /**
  * Represents the Mars-Probe-4000 character with space exploration knowledge and NASA data access.
@@ -136,7 +137,7 @@ export const character: Character = {
 
 export const marsProbe: ProjectAgent = {
   character,
-  plugins: [nasaPlugin],
+  plugins: [nasaPlugin, imageGenPlugin],
   init: async (runtime: IAgentRuntime) => {
     await initCharacter({ runtime, character });
   },

@@ -142,11 +142,11 @@ const imageGeneration: Action = {
 /**
  * OpenAI gpt-image-1 image generation plugin
  */
-export const imageGenerationPlugin: Plugin = {
-  name: 'imageGeneration',
+export const imageGenPlugin: Plugin = {
+  name: 'imageGen',
   description: 'Generate images using OpenAI gpt-image-1 model',
   actions: [imageGeneration],
   services: [ImageGenerationService],
 };
 
-export default imageGenerationPlugin;
+export default imageGenPlugin;
