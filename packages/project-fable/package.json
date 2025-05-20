@@ -34,6 +34,7 @@
     "@elizaos/plugin-openai": "^1.0.0-beta.49",
     "@elizaos/plugin-sql": "workspace:*",
     "@elizaos/plugin-twitter": "^1.0.0-beta.49",
+    "openai": "^4.100.0",
     "zod": "3.24.2"
   },
   "devDependencies": {
