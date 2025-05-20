@@ -7,17 +7,17 @@ interface OpenAIImageResponse {
   created: number;
   data: Array<{
     url?: string;
-    b64_json?: string;
     revised_prompt?: string;
   }>;
 }
 
 /**
- * Service for generating images using OpenAI's GPT-Image-1/DALL-E models
+ * Service for generating images using OpenAI's gpt-image-1 model
+ * See: https://platform.openai.com/docs/guides/images
  */
 export class ImageGenerationService extends Service {
   static serviceType = 'image_generation';
-  capabilityDescription = 'Generates images using OpenAI GPT-Image-1/DALL-E';
+  capabilityDescription = 'Generates images using OpenAI gpt-image-1';
 
   constructor(runtime: IAgentRuntime) {
     super(runtime);
@@ -28,26 +28,12 @@ export class ImageGenerationService extends Service {
   }
 
   /**
-   * Generates an image based on a text prompt
+   * Generates an image based on a text prompt using OpenAI's gpt-image-1 model
    * @param params Parameters for image generation
-   * @returns Generated image prompt or URL
+   * @returns Generated image URL or error message
    */
-  async generateImage(params: {
-    runtime: IAgentRuntime;
-    context: string;
-    modelClass: string;
-    customSystemPrompt?: string;
-  }): Promise<string> {
-    const { runtime, context, modelClass, customSystemPrompt } = params;
-
-    // Generate an optimized prompt using a text model
-    const prompt = await runtime.useModel(modelClass, {
-      runtime,
-      prompt: context,
-      ...(customSystemPrompt ? { systemPrompt: customSystemPrompt } : {}),
-    });
-
-    elizaLogger.log('Optimized image prompt:', prompt);
+  async generateImage(params: { runtime: IAgentRuntime; prompt: string }): Promise<string> {
+    const { runtime, prompt } = params;
 
     try {
       // Get the OpenAI API key
@@ -56,14 +42,8 @@ export class ImageGenerationService extends Service {
         throw new Error('OPENAI_API_KEY is not set');
       }
 
-      // Get image settings from character config or use defaults
-      const settings = runtime.character?.settings?.imageSettings || {};
-      const model = settings.model || 'dall-e-3';
-      const quality = settings.quality || 'standard';
-      const size = settings.size || '1024x1024';
-      const style = settings.style || 'vivid';
-
       // Call OpenAI API to generate image
+      // Using gpt-image-1 model - OpenAI's latest model for image generation
       const response = await fetch('https://api.openai.com/v1/images/generations', {
         method: 'POST',
         headers: {
@@ -71,12 +51,10 @@ export class ImageGenerationService extends Service {
           Authorization: `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
-          model,
+          model: 'gpt-image-1', // Specific model as required
           prompt,
           n: 1,
-          quality,
-          size,
-          style,
+          size: '1024x1024', // Default size for gpt-image-1
           response_format: 'url',
         }),
       });
@@ -99,8 +77,7 @@ export class ImageGenerationService extends Service {
       return data.data[0].url;
     } catch (error) {
       elizaLogger.error('Failed to generate image with OpenAI:', error);
-      // If generation fails, return the prompt for fallback handling
-      return `Failed to generate image: ${prompt}`;
+      return `Failed to generate image: ${error instanceof Error ? error.message : String(error)}`;
     }
   }
 }

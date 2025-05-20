@@ -1,17 +1,19 @@
 import { ActionExample } from '@elizaos/core';
 
+/**
+ * Example conversations demonstrating the OpenAI gpt-image-1 image generation action
+ * Based on capabilities described in: https://platform.openai.com/docs/guides/images
+ */
 export const generateImageExamples: ActionExample[][] = [
-  // TODO: We want to generate images in more abstract ways, not just when asked to generate an image
-
   [
     {
       name: '{{user1}}',
-      content: { text: 'Generate an image of a cat' },
+      content: { text: 'Generate an image of a futuristic city with flying cars' },
     },
     {
       name: '{{agentName}}',
       content: {
-        text: "Here's an image of a cat",
+        text: "Here's the futuristic city you requested:",
         action: 'GENERATE_IMAGE',
       },
     },
@@ -19,12 +21,12 @@ export const generateImageExamples: ActionExample[][] = [
   [
     {
       name: '{{user1}}',
-      content: { text: 'Generate an image of a dog' },
+      content: { text: 'Create a photorealistic image of a mountain landscape at sunset' },
     },
     {
       name: '{{agentName}}',
       content: {
-        text: "Here's an image of a dog",
+        text: "Here's the mountain landscape at sunset:",
         action: 'GENERATE_IMAGE',
       },
     },
@@ -32,12 +34,12 @@ export const generateImageExamples: ActionExample[][] = [
   [
     {
       name: '{{user1}}',
-      content: { text: 'Create an image of a cat with a hat' },
+      content: { text: 'Draw a cute robot playing with a kitten' },
     },
     {
       name: '{{agentName}}',
       content: {
-        text: "Here's an image of a cat with a hat",
+        text: "Here's the robot and kitten scene:",
         action: 'GENERATE_IMAGE',
       },
     },
@@ -45,12 +47,12 @@ export const generateImageExamples: ActionExample[][] = [
   [
     {
       name: '{{user1}}',
-      content: { text: 'Make an image of a dog with a hat' },
+      content: { text: 'Make an image of a surreal underwater cityscape' },
     },
     {
       name: '{{agentName}}',
       content: {
-        text: "Here's an image of a dog with a hat",
+        text: "Here's the underwater cityscape:",
         action: 'GENERATE_IMAGE',
       },
     },
@@ -58,12 +60,12 @@ export const generateImageExamples: ActionExample[][] = [
   [
     {
       name: '{{user1}}',
-      content: { text: 'Paint an image of a cat with a hat' },
+      content: { text: 'Generate a cyberpunk street market at night with neon lights' },
     },
     {
       name: '{{agentName}}',
       content: {
-        text: "Here's an image of a cat with a hat",
+        text: "Here's the cyberpunk street scene:",
         action: 'GENERATE_IMAGE',
       },
     },
