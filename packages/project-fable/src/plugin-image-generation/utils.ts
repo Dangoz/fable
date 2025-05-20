@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { type UUID } from '@elizaos/core';
 
 /**
  * Saves a base64-encoded image to disk
@@ -77,4 +78,12 @@ export function createPlaceholderImage(filename: string): string {
   fs.writeFileSync(filepath, 'Placeholder image file');
 
   return filepath;
+}
+
+/**
+ * Generates a unique ID for memory objects
+ * @returns A unique UUID
+ */
+export function generateId(): UUID {
+  return crypto.randomUUID() as UUID;
 }

@@ -2,10 +2,10 @@ import dotenv from 'dotenv';
 dotenv.config({ path: '../../.env' });
 
 import type { Project } from '@elizaos/core';
-import { defaultCharacter, marsProbe, luigi, pom } from '@/characters';
+import { defaultCharacter, marsProbe } from '@/characters';
 
 const project: Project = {
-  agents: [defaultCharacter, marsProbe, luigi, pom],
+  agents: [defaultCharacter, marsProbe],
 };
 
 export default project;

@@ -1,4 +1,5 @@
 import { type IAgentRuntime, Service, elizaLogger } from '@elizaos/core';
+import { validateOpenAIConfig } from './environment';
 
 /**
  * Interface for OpenAI image generation API response
@@ -36,11 +37,9 @@ export class ImageGenerationService extends Service {
    */
   async generateImage(prompt: string): Promise<string> {
     try {
-      // Get the OpenAI API key
-      const apiKey = this.runtime.getSetting('OPENAI_API_KEY');
-      if (!apiKey) {
-        throw new Error('OPENAI_API_KEY is not set');
-      }
+      // Validate OpenAI configuration
+      const config = await validateOpenAIConfig(this.runtime);
+      const apiKey = config.OPENAI_API_KEY;
 
       elizaLogger.log('Generating image with prompt:', prompt);
 

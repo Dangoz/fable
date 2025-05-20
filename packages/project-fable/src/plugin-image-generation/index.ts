@@ -10,47 +10,10 @@ import {
 } from '@elizaos/core';
 import fs from 'node:fs';
 import path from 'node:path';
-import { isOpenAIConfigured } from './environment';
+import { validateOpenAIConfig } from './environment';
 import { generateImageExamples } from './examples';
 import { ImageGenerationService } from './service';
-
-/**
- * Saves an image from a URL to disk
- * @param imageUrl The URL of the image
- * @param filename The filename to use (without extension)
- * @returns The path to the saved file
- */
-async function saveImageFromUrl(imageUrl: string, filename: string): Promise<string> {
-  const imageDir = path.join(process.cwd(), 'generatedImages');
-  if (!fs.existsSync(imageDir)) {
-    fs.mkdirSync(imageDir, { recursive: true });
-  }
-
-  // Fetch image from URL
-  const response = await fetch(imageUrl);
-  if (!response.ok) {
-    throw new Error(`Failed to fetch image: ${response.statusText}`);
-  }
-
-  const arrayBuffer = await response.arrayBuffer();
-  const imageBuffer = Buffer.from(arrayBuffer);
-
-  // Create full file path
-  const filepath = path.join(imageDir, `${filename}.png`);
-
-  // Save the file
-  fs.writeFileSync(filepath, imageBuffer);
-
-  return filepath;
-}
-
-/**
- * Generates a unique ID for memory objects
- * @returns A unique UUID
- */
-function generateId(): UUID {
-  return crypto.randomUUID() as UUID;
-}
+import { generateId, saveImageFromUrl } from './utils';
 
 /**
  * OpenAI gpt-image-1 image generation action implementation
@@ -62,21 +25,23 @@ const imageGeneration: Action = {
   description: 'Generate an image using OpenAI gpt-image-1 model.',
 
   validate: async (runtime: IAgentRuntime, message: Memory) => {
-    // Check if OpenAI API key is configured
-    const apiKey = runtime.getSetting('OPENAI_API_KEY') || process.env.OPENAI_API_KEY;
-    if (!isOpenAIConfigured(apiKey)) {
+    try {
+      // Validate OpenAI API configuration
+      await validateOpenAIConfig(runtime);
+
+      // Check if the message text suggests image generation
+      const text = message.content.text.toLowerCase();
+      return (
+        text.includes('generate') ||
+        text.includes('create') ||
+        text.includes('draw') ||
+        text.includes('make an image') ||
+        text.includes('picture of')
+      );
+    } catch (error) {
+      elizaLogger.error('OpenAI API validation failed:', error);
       return false;
     }
-
-    // Check if the message text suggests image generation
-    const text = message.content.text.toLowerCase();
-    return (
-      text.includes('generate') ||
-      text.includes('create') ||
-      text.includes('draw') ||
-      text.includes('make an image') ||
-      text.includes('picture of')
-    );
   },
 
   handler: async (
@@ -87,7 +52,7 @@ const imageGeneration: Action = {
     callback?: HandlerCallback
   ) => {
     try {
-      // Register and get the image generation service
+      // Get the image generation service
       await runtime.registerService(ImageGenerationService);
       const imageService = runtime.getService<ImageGenerationService>(
         ImageGenerationService.serviceType
@@ -185,7 +150,7 @@ export const imageGenPlugin: Plugin = {
   name: 'imageGen',
   description: 'Generate images using OpenAI gpt-image-1 model',
   actions: [imageGeneration],
-  services: [ImageGenerationService],
+  // services: [ImageGenerationService],
 };
 
 export default imageGenPlugin;
