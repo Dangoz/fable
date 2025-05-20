@@ -1,202 +1,100 @@
-# Eliza 🤖
-
 <div align="center">
-  <img src="./docs/static/img/eliza_banner.jpg" alt="Eliza Banner" width="100%" />
+
+# Fable 📚
+
+AI-powered storytelling platform that transforms ideas into immersive narratives with vivid imagery.
+
+![Fable Banner](./docs/static/img/fable_banner.jpg)
+
 </div>
 
-<div align="center">
+## 🌟 Overview
 
-📑 [Technical Report](https://arxiv.org/pdf/2501.06781) | 📖 [Documentation](https://elizaos.github.io/eliza/) | 🎯 [Examples](https://github.com/thejoven/awesome-eliza)
-
-</div>
-
-## 🌍 README Translations
-
-[中文说明](packages/docs/i18n/readme/README_CN.md) | [日本語の説明](packages/docs/i18n/readme/README_JA.md) | [한국어 설명](packages/docs/i18n/readme/README_KOR.md) | [Persian](packages/docs/i18n/readme/README_FA.md) | [Français](packages/docs/i18n/readme/README_FR.md) | [Português](packages/docs/i18n/readme/README_PTBR.md) | [Türkçe](packages/docs/i18n/readme/README_TR.md) | [Русский](packages/docs/i18n/readme/README_RU.md) | [Español](packages/docs/i18n/readme/README_ES.md) | [Italiano](packages/docs/i18n/readme/README_IT.md) | [ไทย](packages/docs/i18n/readme/README_TH.md) | [Deutsch](packages/docs/i18n/readme/README_DE.md) | [Tiếng Việt](packages/docs/i18n/readme/README_VI.md) | [עִברִית](packages/docs/i18n/readme/README_HE.md) | [Tagalog](packages/docs/i18n/readme/README_TG.md) | [Polski](packages/docs/i18n/readme/README_PL.md) | [Arabic](packages/docs/i18n/readme/README_AR.md) | [Hungarian](packages/docs/i18n/readme/README_HU.md) | [Srpski](packages/docs/i18n/readme/README_RS.md) | [Română](packages/docs/i18n/readme/README_RO.md) | [Nederlands](packages/docs/i18n/readme/README_NL.md) | [Ελληνικά](packages/docs/i18n/readme/README_GR.md)
-
-## 🚩 Overview
+Fable is an AI-powered storytelling platform that transforms simple ideas into rich, immersive narratives enhanced with stunning visuals. By combining advanced language models with cutting-edge image generation technology, Fable creates a unique experience that bridges the gap between traditional storytelling and modern digital content creation.
 
 <div align="center">
-  <img src="./docs/static/img/eliza_diagram.jpg" alt="Eliza Diagram" width="100%" />
+  <img src="./docs/static/img/fable_diagram.jpg" alt="Fable Platform Diagram" width="100%" />
 </div>
 
 ## ✨ Features
 
-- 🛠️ Full-featured Discord, X (Twitter) and Telegram connectors
-- 🔗 Support for every model (Llama, Grok, OpenAI, Anthropic, Gemini, etc.)
-- 👥 Multi-agent and room support
-- 📚 Easily ingest and interact with your documents
-- 💾 Retrievable memory and document store
-- 🚀 Highly extensible - create your own actions and clients
-- 📦 Just works!
+- 🖋️ **AI Story Generation** - Transform prompts into coherent narratives with plot structure
+- 🎨 **Image Creation** - Generate visuals using OpenAI's gpt-image-1 model
+- 🔄 **Interactive Editing** - Refine both text and imagery with intuitive tools
+- 📱 **Multi-Platform Support** - Create and share on any device
+- 👥 **Collaboration Tools** - Work together with others to bring stories to life
+- 📤 **Export Options** - Download in multiple formats for different publishing needs
+- 🔍 **Content Discovery** - Explore stories created by the community
 
-## Video Tutorials
+## 🎬 Demo Videos
 
-[AI Agent Dev School](https://www.youtube.com/watch?v=ArptLpQiKfI&list=PLx5pnFXdPTRzWla0RaOxALTSTnVq53fKL)
+[Storytelling Made Simple](https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=fable-demos)
 
 ## 🎯 Use Cases
 
-- 🤖 Chatbots
-- 🕵️ Autonomous Agents
-- 📈 Business Process Handling
-- 🎮 Video Game NPCs
-- 🧠 Trading
+- 📖 Interactive Children's Books
+- 🎮 Game Narrative Development
+- 🏫 Educational Content Creation
+- 📱 Social Media Storytelling
+- 🎭 Creative Writing Assistance
+- 🎞️ Storyboard Generation
+- 🏢 Brand Storytelling & Marketing
 
-## 🚀 Quick Start
+## 🛠️ Technical Implementation
 
-### Prerequisites
+Fable leverages cutting-edge technologies to deliver a seamless storytelling experience:
 
-- [Python 2.7+](https://www.python.org/downloads/)
-- [Node.js 23+](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-- [bun](https://bun.sh/docs/installation)
+### Technology Stack
 
-> **Note for Windows Users:** [WSL 2](https://learn.microsoft.com/en-us/windows/wsl/install-manual) is required.
-
-### Use the Starter (Recommended)
-
-```bash
-git clone https://github.com/elizaos/eliza-starter.git
-cd eliza-starter
-cp .env.example .env
-bun i && bun run build && bun start
-```
-
-### Manually Start Eliza (Only recommended if you know what you are doing)
-
-#### Prerequisites
-
-- **Node.js** (v18+ recommended)
-- **bun** (for CLI and dependencies)
-- **bats** (shell test runner, install globally via npm or bun)
-- **git** (for project/plugin tests)
-
-#### Install Bats (Test Runner)
-
-You need the [bats-core](https://github.com/bats-core/bats-core) test runner for shell tests.
-
-To install globally:
-
-```bash
-npm install -g bats
-# or, if you use bun:
-bun add -g bats
-```
-
-#### Checkout the latest release
-
-```bash
-# Clone the repository
-git clone https://github.com/elizaos/eliza.git
-
-# This project iterates fast, so we recommend checking out the latest release
-git checkout $(git describe --tags --abbrev=0)
-# If the above doesn't checkout the latest release, this should work:
-# git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
-```
-
-#### Edit the .env file
-
-Copy .env.example to .env and fill in the appropriate values.
+#### Frontend
 
 ```
-cp .env.example .env
+Next.js
+Shadcn
+TailwindCSS
+zustand
+react-query
 ```
 
-Note: .env is optional. If you're planning to run multiple distinct agents, you can pass secrets through the character JSON
+#### Backend
 
-#### Start Eliza
-
-Important! We now use Bun. If you are using npm, you will need to install Bun:
-https://bun.sh/docs/installation
-
-```bash
-bun install
-bun run build # npm will work too
-bun start # npm will work too
+```
+ElizaOS v2-beta
+Express.js
+PostgreSQL
+drizzle-orm
 ```
 
-### Interact via Browser
+#### Web3
 
-Once the agent is running, you can visit http://localhost:3000 to interact with your agent through a web interface. The interface provides:
-
-- Real-time chat with your agent
-- Character configuration options
-- Plugin management
-- Memory and conversation history
-
-### OpenTelemetry Instrumentation (Optional)
-
-Eliza supports OpenTelemetry for tracing and monitoring agent behavior. This allows you to gain insights into the performance and execution flow of your agents.
-
-**Enabling Instrumentation:**
-
-Set the following environment variable:
-
-```bash
-INSTRUMENTATION_ENABLED=true
+```
+Family Connectkit
+Alchemy RPC (Lens)
+Lens Protocol Client & React SDK
+viem
+wagmi
 ```
 
-When enabled, Eliza will:
+### Architecture Diagram
 
-- Initialize an OpenTelemetry tracer.
-- Automatically trace key operations within the core `AgentRuntime` and supported plugins (e.g., the `plugin-openai`).
+<div align="center">
+  <img src="./docs/static/img/fable_architecture.jpg" alt="Fable Architecture Diagram" width="80%" />
+</div>
 
-**Service Name:**
+## 💼 Business Model
 
-The default service name for traces will be `agent-<character_name>-<agent_id>`.
+Fable offers multiple revenue streams designed to cater to different user segments:
 
-**PostgreSQL Exporter Setup (Example):**
+| Plan             | Features                               | Price         |
+| ---------------- | -------------------------------------- | ------------- |
+| **Basic**        | 20 stories/month, standard images      | $9.99/month   |
+| **Premium**      | Unlimited stories, priority rendering  | $19.99/month  |
+| **Professional** | Custom branding, API access, analytics | $49.99/month  |
+| **Enterprise**   | Custom solutions, dedicated support    | Contact sales |
 
-If you plan to export traces to a PostgreSQL database (e.g., using a compatible OpenTelemetry exporter), you can start a local instance using Docker:
+## Future Extensions
 
-```bash
-docker run -d --name postgres-tracing -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=eliza_tracing postgres:15
-```
+## 🔗 Connect With Us
 
-You will also need to configure the connection URL via the following environment variable, adjusting it based on your database setup:
-
-```bash
-INSTRUMENTATION_ENABLED=true
-POSTGRES_URL_INSTRUMENTATION="postgresql://postgres:postgres@localhost:5432/eliza_tracing"
-```
-
----
-
-### Automatically Start Eliza
-
-The start script provides an automated way to set up and run Eliza:
-
-## Citation
-
-We now have a [paper](https://arxiv.org/pdf/2501.06781) you can cite for the Eliza OS:
-
-```bibtex
-@article{walters2025eliza,
-  title={Eliza: A Web3 friendly AI Agent Operating System},
-  author={Walters, Shaw and Gao, Sam and Nerd, Shakker and Da, Feng and Williams, Warren and Meng, Ting-Chien and Han, Hunter and He, Frank and Zhang, Allen and Wu, Ming and others},
-  journal={arXiv preprint arXiv:2501.06781},
-  year={2025}
-}
-```
-
-## Contributors
-
-<a href="https://github.com/elizaos/eliza/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=elizaos/eliza" alt="Eliza project contributors" />
-</a>
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=elizaos/eliza&type=Date)](https://star-history.com/#elizaos/eliza&Date)
-
-## Git Hooks
-
-This project uses git hooks to ensure code quality:
-
-- **pre-commit**: Automatically formats staged files using Prettier before committing
-
-To run the pre-commit hook manually:
-
-```bash
-bun run pre-commit
-```
+- **Email**: [contact@fable.ai](mailto:contact@fable.ai)
+- **Twitter**: [@Fablexyz](https://twitter.com/fablexyz)
